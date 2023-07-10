@@ -26,5 +26,3 @@ const Navbar = (): JSX.Element => {
 };
 
 export default Navbar;
-
-//Вынести компонеты итемы

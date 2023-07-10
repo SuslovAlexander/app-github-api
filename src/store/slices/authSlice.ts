@@ -31,7 +31,7 @@ export const getViewer = createAsyncThunk<TUserLogin, void, { state: { auth: IIn
 const initialState: IInitialAuthSlice = {
   token: null,
   isAuth: false,
-  user: null,
+  user: {},
   isLoading: false,
   error: null,
 };

@@ -40,7 +40,7 @@ const Header = (): JSX.Element => {
       <> {user && <UserLogo {...user} />}</>
       <div className={styles.links}>
         <Navbar />
-      </div>
+      </div> 
     </div>
   );
 };

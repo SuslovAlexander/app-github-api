@@ -1,7 +1,7 @@
 export interface IInitialAuthSlice {
     token: null | string;
     isAuth: boolean;
-    user: null | string;
+    user: any;
     isLoading: boolean;
     error: null | string;
 }

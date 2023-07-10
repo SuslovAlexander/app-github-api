@@ -1,0 +1,1 @@
+export const transformStarredRepos = (data: any) => data.data.viewer.starredRepositories.edges;

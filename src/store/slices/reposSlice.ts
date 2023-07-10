@@ -1,22 +1,32 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+import { mutationAddStar } from "../../queries/mutationAddStar";
+import { mutationRemoveStar } from "../../queries/mutationRemoveStar";
+import { queryGetFavorite } from "../../queries/queryGetFavorite";
+import { fetchWrap } from "../../utils/fetchWrap";
+import { transformStarredRepos } from "../../utils/transformStarredRepos";
 import { IInitialAuthSlice } from "../types/IInitialAuthSlice";
 import { IInitialReposSlice } from "../types/IInitialReposSlice";
 import { TPartialRepo } from "../types/IRepo";
 import { IState } from "../types/IState";
 
-export const getRepos = createAsyncThunk<TPartialRepo[], string, { state: { auth: IInitialAuthSlice; repos: IInitialReposSlice; }, rejectWithValue: string }>(
-  "auth/getRepos",
-  async (searchStr: string, { getState, rejectWithValue }) => {
-    const { token } = getState().auth;
-    const response = await fetch("https://api.github.com/graphql", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `bearer ${token}`,
-      },
-      body: JSON.stringify({
-        query: `query {
+export const getRepos = createAsyncThunk<
+  TPartialRepo[],
+  string,
+  {
+    state: { auth: IInitialAuthSlice; repos: IInitialReposSlice };
+    rejectWithValue: string;
+  }
+>("auth/getRepos", async (searchStr: string, { getState, rejectWithValue }) => {
+  const { token } = getState().auth;
+  const response = await fetch("https://api.github.com/graphql", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `bearer ${token}`,
+    },
+    body: JSON.stringify({
+      query: `query {
           search(query: "${searchStr}", type: REPOSITORY, first: 10) {
             edges {
               node {
@@ -33,112 +43,64 @@ export const getRepos = createAsyncThunk<TPartialRepo[], string, { state: { auth
             }
           }
         }`,
-      }),
-    });
-    if (!response.ok) {
-      return rejectWithValue("Error getRepos!")
-    }
-    const data = await response.json();
-    return data.data.search.edges;
+    }),
+  });
+  if (!response.ok) {
+    return rejectWithValue("Error getRepos!");
   }
-);
+  const data = await response.json();
+  return data.data.search.edges;
+});
 
-export const getFavoriteRepos = createAsyncThunk<TPartialRepo[], void, { state: IState, rejectWithValue: string }>(
-  "auth/getFavoriteRepos",
-  async (_, { getState, rejectWithValue }) => {
-    const { token } = getState().auth;
-    const response = await fetch("https://api.github.com/graphql", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `bearer ${token}`,
-      },
-      body: JSON.stringify({
-        query: `{
-          viewer {
-            starredRepositories(first: 10) {
-              edges {
-                node {
-                  name
-                  id
-                  primaryLanguage {
-                    name
-                  }
-                  viewerHasStarred
-                  url
-                }
-              }
-            }
-          }
-        }`,
-      }),
-    });
-    if (!response.ok) {
-      return rejectWithValue("Error getFavoriteRepos!")
-    }
-    const data = await response.json();
-    return data.data.viewer.starredRepositories.edges;
+export const getFavoriteRepos = createAsyncThunk<
+  TPartialRepo[],
+  void,
+  { state: IState; rejectWithValue: string }
+>("auth/getFavoriteRepos", async (_, { getState, rejectWithValue }) => {
+  const { token } = getState().auth;
+
+  const response = await fetchWrap(token, queryGetFavorite("sd"));
+
+  if (!response.ok) {
+    return rejectWithValue("Error getFavoriteRepos!");
   }
-);
+  const data = await response.json();
+  return data.data.viewer.starredRepositories.edges;
+});
 
-export const addToFavorite = createAsyncThunk<TPartialRepo[], string, { state: IState, rejectWithValue: string }>(
+export const addToFavorite = createAsyncThunk<
+  TPartialRepo[],
+  string,
+  { state: IState; rejectWithValue: string }
+>(
   "auth/addToFavorite",
   async (repoId: string, { getState, rejectWithValue }) => {
     const { token } = getState().auth;
-    const response = await fetch("https://api.github.com/graphql", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `bearer ${token}`,
-      },
-      body: JSON.stringify({
-        query: `mutation {
-          addStar(input:{starrableId: "${repoId}"}) {  
-        starrable {
-              stargazers {
-                totalCount
-              } 
-            }
-          }
-        }`,
-      }),
-    });
+    const response = await fetchWrap(token, mutationAddStar(repoId));
     if (!response.ok) {
       return rejectWithValue("Error addToFavorite!");
     }
     const data = await response.json();
-    return data.data.viewer.starredRepositories.edges;
+    return transformStarredRepos(data);
   }
 );
 
-export const removeFromFavorite = createAsyncThunk<TPartialRepo[], string, { state: IState, rejectWithValue: string }>(
+export const removeFromFavorite = createAsyncThunk<
+  TPartialRepo[],
+  string,
+  { state: IState; rejectWithValue: string }
+>(
   "auth/removeFromFavorite",
   async (repoId: string, { rejectWithValue, getState }) => {
     const { token } = getState().auth;
-    const response = await fetch("https://api.github.com/graphql", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `bearer ${token}`,
-      },
-      body: JSON.stringify({
-        query: `mutation {
-          removeStar(input:{starrableId:"${repoId}"}) {
-            starrable {
-              id
-            }
-          }
-        }`,
-      }),
-    });
+    const response = await fetchWrap(token, mutationRemoveStar(repoId));
     if (!response.ok) {
       return rejectWithValue("Error removeFromFavorite!");
     }
     const data = await response.json();
-    return data.data.viewer.starredRepositories.edges;
+    return transformStarredRepos(data);
   }
 );
-
 
 const initialState: IInitialReposSlice = {
   found: [],
@@ -146,7 +108,6 @@ const initialState: IInitialReposSlice = {
   searchInProcess: false,
   faforiteIsFetching: false,
 };
-
 
 const reposSlice = createSlice({
   name: "repos",

@@ -1,5 +1,5 @@
 export interface IColorUrl {
-  color: string | null;
+  color: any;
   url: string;
 }
 
