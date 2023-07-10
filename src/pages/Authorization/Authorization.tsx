@@ -1,9 +1,8 @@
 import Container from "../../components/Layout/Container/Container";
-
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../components/hooks/hooks";
 
 const Authorization = (): JSX.Element => {
-  const { token } = useSelector((state: any) => state.auth);
+  const { token } = useAppSelector((state) => state.auth);
 
   return (
     <Container>

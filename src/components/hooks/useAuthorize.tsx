@@ -1,9 +1,10 @@
-import { useDispatch } from "react-redux";
-
 import { setIsAuth, setToken } from "../../store/slices/authSlice";
+import { TTokenSetAuth } from "../../store/types/TTokenSetAuth";
 
-const useAuthorize = () => {
-  const dispatch = useDispatch();
+import { useAppDispatch } from "./hooks";
+
+const useAuthorize = (): void => {
+  const dispatch = useAppDispatch();
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -18,7 +19,7 @@ const useAuthorize = () => {
   }
 
   if (codeParam) {
-    const getTokenSetAuth = async () => {
+    const getTokenSetAuth: TTokenSetAuth = async () => {
       await fetch("http://localhost:4000/getAccessToken?code=" + codeParam, {
         method: "GET",
       })

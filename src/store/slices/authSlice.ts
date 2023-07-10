@@ -1,38 +1,46 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export const getViewer = createAsyncThunk("auth/getViewer", async () => {
+import { IInitialAuthSlice } from "../types/IInitialAuthSlice";
+import { IInitialReposSlice } from "../types/IInitialReposSlice";
+import { TUserLogin } from "../types/TUserLogin";
+
+export const getViewer = createAsyncThunk<TUserLogin, void, { state: { auth: IInitialAuthSlice; repos: IInitialReposSlice; }, rejectWithValue: string }>("auth/getViewer", async (_, { getState, rejectWithValue }) => {
+  const { token } = getState().auth;
   const response = await fetch("https://api.github.com/graphql", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
-      Authorization: `bearer ${localStorage.getItem("accessToken")}`,
+      Authorization: `bearer ${token}`,
     },
     body: JSON.stringify({
       query: `{
           viewer {
             login
             avatarUrl
-          }
+          } 
         }`,
     }),
   });
+  if (!response.ok) {
+    return rejectWithValue("Auth error!")
+  }
   const data = await response.json();
-
   return data.data.viewer;
 });
 
-const initialState: any = {
+const initialState: IInitialAuthSlice = {
   token: null,
   isAuth: false,
   user: null,
-  repos: [],
+  isLoading: false,
+  error: null,
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setToken(state, action) {
+    setToken(state, action: PayloadAction<string>) {
       state.token = action.payload;
     },
     removeToken(state) {
@@ -49,14 +57,23 @@ const authSlice = createSlice({
       state.token = null;
       state.user = null;
     },
-    setUser(state, action) {
+    setUser(state, action: PayloadAction<string>) {
       state.user = action.payload;
     },
   },
-  extraReducers: {
-    [getViewer.fulfilled as any]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(getViewer.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addCase(getViewer.fulfilled, (state, action) => {
       state.user = action.payload;
-    },
+      state.isLoading = false;
+    });
+    builder.addCase(getViewer.rejected, (state) => {
+      state.isLoading = false;
+      state.error = "Error occured in AUTH";
+    });
   },
 });
 

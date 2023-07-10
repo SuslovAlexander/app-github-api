@@ -1,25 +1,24 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import { clearFound, getRepos } from "../../store/slices/reposSlice";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { Repos } from "../Repos";
 import { SearchInput } from "../SearchInput";
+import Loader from "../UI/Loader/Loader";
+
 import styles from "./SearchRepos.module.css";
 
 const SearchRepos = (): JSX.Element => {
   const [inputValue, setInputValue] = useState<string>("");
-  const { found } = useSelector((state: any) => state.repos);
+  const { found, searchInProcess } = useAppSelector((state) => state.repos);
 
-  const dispatch: any = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
- /*    if (found.length) {
-      return;
-    } */
     dispatch(getRepos(inputValue));
   }, [inputValue, dispatch]);
 
-  const handleFocus = () => {
+  const handleFocus = (): void => {
     dispatch(clearFound());
   };
 
@@ -31,7 +30,7 @@ const SearchRepos = (): JSX.Element => {
         onChange={setInputValue}
         onFocus={handleFocus}
       />
-      <Repos repos={found} />
+      {searchInProcess ? <Loader /> : <Repos repos={found} />}
     </div>
   );
 };

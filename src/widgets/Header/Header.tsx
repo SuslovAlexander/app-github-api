@@ -1,7 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { LoginButton } from "../../components/UI/LoginButton";
+import { useAppDispatch, useAppSelector } from "../../components/hooks/hooks";
 import { CLIENT_ID } from "../../const/clientId";
 import { logOut } from "../../store/slices/authSlice";
 import { Navbar } from "../Navdar";
@@ -9,12 +9,12 @@ import { UserLogo } from "../UserLogo";
 import styles from "./Header.module.css";
 
 const Header = (): JSX.Element => {
-  const { token, user } = useSelector((state: any) => state.auth);
+  const { token, user } = useAppSelector((state) => state.auth);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleLoginWhithGithub = () => {
+  const handleLoginWhithGithub = (): void => {
     window.location.assign(
       "https://github.com/login/oauth/authorize?client_id=" +
         CLIENT_ID +
@@ -22,7 +22,7 @@ const Header = (): JSX.Element => {
     );
   };
 
-  const handleLogout = () => {
+  const handleLogout = (): void => {
     localStorage.removeItem("accessToken");
     navigate("/");
     dispatch(logOut());

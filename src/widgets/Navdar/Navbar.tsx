@@ -1,10 +1,10 @@
-import { useSelector } from "react-redux";
 import { Link, useMatch } from "react-router-dom";
 
+import { useAppSelector } from "../../components/hooks/hooks";
 import styles from "./Navbar.module.css";
 
 const Navbar = (): JSX.Element => {
-  const { isAuth } = useSelector((state: any) => state.auth);
+  const { isAuth } = useAppSelector((state) => state.auth);
 
   const matchFavorites = useMatch(`/favorites`);
   const matchHome = useMatch(`/`);

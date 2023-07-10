@@ -1,15 +1,15 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
+import { useAppDispatch, useAppSelector } from "./components/hooks/hooks";
 import useAuthorize from "./components/hooks/useAuthorize";
 import Routing from "./pages";
 import { getViewer } from "./store/slices/authSlice";
 
 const App = (): JSX.Element => {
-  const dispatch: any = useDispatch();
+  const dispatch = useAppDispatch();
   useAuthorize();
 
-  const { isAuth } = useSelector((state: any) => state.auth);
+  const { isAuth } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getViewer());

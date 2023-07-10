@@ -1,20 +1,15 @@
-import { useDispatch } from "react-redux";
-
 import { GH_COLORS } from "../../const/ghLangColor";
 import {
   addToFavorite,
   removeFromFavorite,
 } from "../../store/slices/reposSlice";
-import styles from "./RepoItem.module.css";
+
+import { useAppDispatch } from "../hooks/hooks";
+
 import Star from "./Star";
 
-interface IRepoItemProps {
-  id: string;
-  url: string;
-  name: string;
-  primaryLanguage: string;
-  viewerHasStarred: boolean;
-}
+import styles from "./RepoItem.module.css";
+import { TPartialRepo } from "../../store/types/IRepo";
 
 const RepoItem = ({
   id,
@@ -22,19 +17,24 @@ const RepoItem = ({
   name,
   primaryLanguage,
   viewerHasStarred,
-}: IRepoItemProps): JSX.Element => {
-  const dispatch: any = useDispatch();
+}: TPartialRepo): JSX.Element => {
+
+
+
+  const dispatch = useAppDispatch();
 
   const handleStarClick = (): void => {
+    if (!id) {
+      return;
+    }
     if (viewerHasStarred) {
       dispatch(removeFromFavorite(id));
-      //мутация на удаление звезды
     } else {
-      //мутация на добавление звезды
       dispatch(addToFavorite(id));
-      console.log("Звезды нет", id);
     }
   };
+
+  const lalngIconStyle = primaryLanguage ? { backgroundColor: GH_COLORS[primaryLanguage].color } : {};
 
   return (
     <div className={styles.wrap}>
@@ -45,7 +45,7 @@ const RepoItem = ({
         <div className={styles.language}>
           <div
             className={styles.round}
-            style={{ backgroundColor: GH_COLORS[primaryLanguage]?.color }}
+            style={lalngIconStyle}
           ></div>
           <span>{primaryLanguage}</span>
         </div>

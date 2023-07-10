@@ -1,6 +1,8 @@
 import { Container } from "../Layout/Container";
-import styles from "./NotAuthorized.module.css";
+
 import Shield from "./Shield";
+
+import styles from "./NotAuthorized.module.css";
 
 const NotAuthorized = ({ text }: { text: string }): JSX.Element => {
   return (

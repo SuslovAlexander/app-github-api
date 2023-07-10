@@ -1,4 +1,11 @@
-export const GH_COLORS: any  = {
+export interface IColorUrl {
+  color: string | null;
+  url: string;
+}
+
+export type TColorsMap = Record<string, IColorUrl>;
+
+export const GH_COLORS: TColorsMap = {
   "1C Enterprise": {
     color: "#814CCC",
     url: "https://github.com/trending?l=1C-Enterprise",

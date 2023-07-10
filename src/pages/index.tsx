@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
-import RequireAuth from "../components/hok/RequireAuth";
+import RequireAuth from "../components/hoks/RequireAuth";
 import FavoritsPage from "./FavoritsPage/FavoritsPage";
 import General from "./General/General";
 import HomePage from "./HomePage/HomePage";

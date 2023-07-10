@@ -11,7 +11,7 @@ const SearchInput = ({
   placeholder = "",
   value,
   onChange,
-  onFocus,
+  onFocus,  
 }: ISearchInputProps): JSX.Element => {
   return (
     <>
