@@ -50,7 +50,7 @@ const RepoItem = ({
               : "Добавить в избранное (+1)"}
           </span>
           <span className={styles.star}>
-            <Star />
+            {viewerHasStarred ? <Star fill="gold" /> : <Star />}
           </span>
         </button>
       </div>

@@ -15,11 +15,11 @@ const Navbar = (): JSX.Element => {
 
   return (
     <nav className={styles.navbar}>
-      <Link to={"/favorites"} className={matchFavorites ? styles.active : ""}>
-        Избранное
-      </Link>
       <Link to={"/"} className={matchHome ? styles.active : ""}>
         Домой
+      </Link>
+      <Link to={"/favorites"} className={matchFavorites ? styles.active : ""}>
+        Избранное
       </Link>
     </nav>
   );

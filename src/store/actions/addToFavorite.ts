@@ -17,6 +17,7 @@ export const addToFavorite = createAsyncThunk<
             return rejectWithValue("Error addToFavorite!");
         }
         const data = await response.json();
+        console.log(data)
         return data.data.viewer.starredRepositories.edges
     }
 );

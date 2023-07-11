@@ -1,3 +1,4 @@
+/**Интерфейс для auth слайса */
 export interface IInitialAuthSlice {
   token: null | string;
   isAuth: boolean;
