@@ -1,5 +1,5 @@
-export const fetchWrap = (token: string | null, query: string): any => {
-  fetch("https://api.github.com/graphql", {
+export const fetchWrap = async (token: string | null, query: string): Promise<Response> => {
+  const response = await fetch("https://api.github.com/graphql", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
@@ -9,4 +9,5 @@ export const fetchWrap = (token: string | null, query: string): any => {
       query: query,
     }),
   });
-};
+  return response;
+}; 

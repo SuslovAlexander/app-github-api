@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 
-import { clearFound, getRepos } from "../../store/slices/reposSlice";
+import { clearFound } from "../../store/slices/reposSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { Repos } from "../Repos";
 import { SearchInput } from "../SearchInput";
 import Loader from "../UI/Loader/Loader";
 
 import styles from "./SearchRepos.module.css";
+import { getRepos } from "../../store/actions/getRepos";
 
 const SearchRepos = (): JSX.Element => {
   const [inputValue, setInputValue] = useState<string>("");

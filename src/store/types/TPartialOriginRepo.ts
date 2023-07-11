@@ -4,10 +4,10 @@ export interface IOriginRepo {
         url: string;
         name: string;
         primaryLanguage: { name: string } | null;
-        viewerHasStarred: boolean;
+        viewerHasStarred: string;
     }
-
 }
 
-export type TPartialOriginRepo = Partial<IOriginRepo>;
+
+
 

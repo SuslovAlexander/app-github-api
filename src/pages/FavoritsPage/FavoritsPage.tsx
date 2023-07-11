@@ -4,7 +4,7 @@ import Container from "../../components/Layout/Container/Container";
 import { Repos } from "../../components/Repos";
 import Loader from "../../components/UI/Loader/Loader";
 import { useAppDispatch, useAppSelector } from "../../components/hooks/hooks";
-import { getFavoriteRepos } from "../../store/slices/reposSlice";
+import { getFavoriteRepos } from "../../store/actions/getFavoriteRepos";
 
 const FavoritsPage = (): JSX.Element => {
   const { favorites, faforiteIsFetching } = useAppSelector(

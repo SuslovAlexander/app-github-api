@@ -1,106 +1,10 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-import { mutationAddStar } from "../../queries/mutationAddStar";
-import { mutationRemoveStar } from "../../queries/mutationRemoveStar";
-import { queryGetFavorite } from "../../queries/queryGetFavorite";
-import { fetchWrap } from "../../utils/fetchWrap";
-import { transformStarredRepos } from "../../utils/transformStarredRepos";
-import { IInitialAuthSlice } from "../types/IInitialAuthSlice";
+import { getReposFromPayload } from "../../utils/getReposFromPayload";
+import { addToFavorite } from "../actions/addToFavorite";
+import { getFavoriteRepos } from "../actions/getFavoriteRepos";
+import { getRepos } from "../actions/getRepos";
 import { IInitialReposSlice } from "../types/IInitialReposSlice";
-import { TPartialRepo } from "../types/IRepo";
-import { IState } from "../types/IState";
-
-export const getRepos = createAsyncThunk<
-  TPartialRepo[],
-  string,
-  {
-    state: { auth: IInitialAuthSlice; repos: IInitialReposSlice };
-    rejectWithValue: string;
-  }
->("auth/getRepos", async (searchStr: string, { getState, rejectWithValue }) => {
-  const { token } = getState().auth;
-  const response = await fetch("https://api.github.com/graphql", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-      Authorization: `bearer ${token}`,
-    },
-    body: JSON.stringify({
-      query: `query {
-          search(query: "${searchStr}", type: REPOSITORY, first: 10) {
-            edges {
-              node {
-                ... on Repository {
-                  name
-                  id
-                  primaryLanguage {
-                    name
-                  }
-                  viewerHasStarred
-                  url
-                }
-              }
-            }
-          }
-        }`,
-    }),
-  });
-  if (!response.ok) {
-    return rejectWithValue("Error getRepos!");
-  }
-  const data = await response.json();
-  return data.data.search.edges;
-});
-
-export const getFavoriteRepos = createAsyncThunk<
-  TPartialRepo[],
-  void,
-  { state: IState; rejectWithValue: string }
->("auth/getFavoriteRepos", async (_, { getState, rejectWithValue }) => {
-  const { token } = getState().auth;
-
-  const response = await fetchWrap(token, queryGetFavorite("sd"));
-
-  if (!response.ok) {
-    return rejectWithValue("Error getFavoriteRepos!");
-  }
-  const data = await response.json();
-  return data.data.viewer.starredRepositories.edges;
-});
-
-export const addToFavorite = createAsyncThunk<
-  TPartialRepo[],
-  string,
-  { state: IState; rejectWithValue: string }
->(
-  "auth/addToFavorite",
-  async (repoId: string, { getState, rejectWithValue }) => {
-    const { token } = getState().auth;
-    const response = await fetchWrap(token, mutationAddStar(repoId));
-    if (!response.ok) {
-      return rejectWithValue("Error addToFavorite!");
-    }
-    const data = await response.json();
-    return transformStarredRepos(data);
-  }
-);
-
-export const removeFromFavorite = createAsyncThunk<
-  TPartialRepo[],
-  string,
-  { state: IState; rejectWithValue: string }
->(
-  "auth/removeFromFavorite",
-  async (repoId: string, { rejectWithValue, getState }) => {
-    const { token } = getState().auth;
-    const response = await fetchWrap(token, mutationRemoveStar(repoId));
-    if (!response.ok) {
-      return rejectWithValue("Error removeFromFavorite!");
-    }
-    const data = await response.json();
-    return transformStarredRepos(data);
-  }
-);
 
 const initialState: IInitialReposSlice = {
   found: [],
@@ -117,43 +21,23 @@ const reposSlice = createSlice({
       state.found = [];
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(getRepos.pending, (state) => {
+  extraReducers: (bulder) => {
+    bulder.addCase(getRepos.pending, (state) => {
       state.searchInProcess = true;
     });
-    builder.addCase(getRepos.fulfilled, (state, { payload }) => {
+    bulder.addCase(getRepos.fulfilled, (state, { payload }) => {
       state.searchInProcess = false;
-      state.found = payload.map((item: any) => ({
-        id: item?.node?.id,
-        url: item?.node?.url,
-        name: item?.node?.name,
-        primaryLanguage: item?.node?.primaryLanguage?.name,
-        viewerHasStarred: item?.node?.viewerHasStarred,
-      }));
+      state.found = getReposFromPayload(payload);
     });
-
-    builder.addCase(getFavoriteRepos.pending, (state) => {
+    bulder.addCase(getFavoriteRepos.pending, (state) => {
       state.faforiteIsFetching = true;
     });
-    builder.addCase(getFavoriteRepos.fulfilled, (state, { payload }) => {
+    bulder.addCase(getFavoriteRepos.fulfilled, (state, { payload }) => {
       state.faforiteIsFetching = false;
-      state.favorites = payload.map((item: any) => ({
-        id: item?.node?.id,
-        url: item?.node?.url,
-        name: item?.node?.name,
-        primaryLanguage: item?.node?.primaryLanguage?.name,
-        viewerHasStarred: item?.node?.viewerHasStarred,
-      }));
+      state.favorites = getReposFromPayload(payload);
     });
-
-    builder.addCase(addToFavorite.fulfilled, (state, { payload }) => {
-      state.favorites = payload.map((item: any) => ({
-        id: item?.node?.id,
-        url: item?.node?.url,
-        name: item?.node?.name,
-        primaryLanguage: item?.node?.primaryLanguage?.name,
-        viewerHasStarred: item?.node?.viewerHasStarred,
-      }));
+    bulder.addCase(addToFavorite.fulfilled, (state, { payload }) => {
+      state.favorites = getReposFromPayload(payload);
     });
   },
 });

@@ -1,4 +1,4 @@
-export const queryGetFavorite = (qureStr?: string) => `{
+export const queryGetFavorite = () => `{
   viewer {
     starredRepositories(first: 10) {
       edges {

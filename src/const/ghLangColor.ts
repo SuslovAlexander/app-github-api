@@ -1,5 +1,5 @@
 export interface IColorUrl {
-  color: any;
+  color: string | undefined;
   url: string;
 }
 
@@ -123,7 +123,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=AsciiDoc",
   },
   ASL: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=ASL",
   },
   "ASP.NET": {
@@ -187,7 +187,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Beef",
   },
   Befunge: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Befunge",
   },
   Berry: {
@@ -267,7 +267,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=C++",
   },
   "C2hs Haskell": {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=C2hs-Haskell",
   },
   "Cabal Config": {
@@ -295,7 +295,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Cap'n-Proto",
   },
   CartoCSS: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=CartoCSS",
   },
   Ceylon: {
@@ -307,7 +307,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Chapel",
   },
   Charity: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Charity",
   },
   ChucK: {
@@ -363,7 +363,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=CMake",
   },
   COBOL: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=COBOL",
   },
   CodeQL: {
@@ -399,7 +399,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Component-Pascal",
   },
   Cool: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Cool",
   },
   Coq: {
@@ -451,7 +451,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=CWeb",
   },
   Cycript: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Cycript",
   },
   Cypher: {
@@ -499,7 +499,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Dhall",
   },
   "DIGITAL Command Language": {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=DIGITAL-Command-Language",
   },
   "DirectX 3D File": {
@@ -523,7 +523,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Dotenv",
   },
   DTrace: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=DTrace",
   },
   Dylan: {
@@ -647,7 +647,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Filebench-WML",
   },
   Filterscript: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Filterscript",
   },
   fish: {
@@ -715,7 +715,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=GCC-Machine-Description",
   },
   GDB: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=GDB",
   },
   GDScript: {
@@ -947,7 +947,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Hy",
   },
   HyPhy: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=HyPhy",
   },
   IDL: {
@@ -975,7 +975,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Imba",
   },
   "Inform 7": {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Inform-7",
   },
   INI: {
@@ -983,7 +983,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=INI",
   },
   Ink: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Ink",
   },
   "Inno Setup": {
@@ -1167,7 +1167,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Latte",
   },
   Lean: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Lean",
   },
   Less: {
@@ -1191,7 +1191,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=LilyPond",
   },
   Limbo: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Limbo",
   },
   Liquid: {
@@ -1219,7 +1219,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=LLVM",
   },
   Logos: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Logos",
   },
   Logtalk: {
@@ -1235,7 +1235,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=LookML",
   },
   LoomScript: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=LoomScript",
   },
   LSL: {
@@ -1247,15 +1247,15 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Lua",
   },
   M: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=M",
   },
   M4: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=M4",
   },
   M4Sugar: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=M4Sugar",
   },
   Macaulay2: {
@@ -1323,7 +1323,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Metal",
   },
   MiniD: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=MiniD",
   },
   MiniYAML: {
@@ -1359,11 +1359,11 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Modula-3",
   },
   "Module Management System": {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Module-Management-System",
   },
   Monkey: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Monkey",
   },
   "Monkey C": {
@@ -1371,7 +1371,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Monkey-C",
   },
   Moocode: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Moocode",
   },
   MoonScript: {
@@ -1403,7 +1403,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=MTML",
   },
   MUF: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=MUF",
   },
   mupad: {
@@ -1415,7 +1415,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Mustache",
   },
   Myghty: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Myghty",
   },
   nanorc: {
@@ -1427,7 +1427,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Nasal",
   },
   NASL: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=NASL",
   },
   NCL: {
@@ -1487,7 +1487,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=NPM-Config",
   },
   NSIS: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=NSIS",
   },
   Nu: {
@@ -1559,7 +1559,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=ooc",
   },
   Opa: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Opa",
   },
   Opal: {
@@ -1591,7 +1591,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=OpenQASM",
   },
   "OpenRC runscript": {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=OpenRC-runscript",
   },
   OpenSCAD: {
@@ -1607,7 +1607,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Org",
   },
   Ox: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Ox",
   },
   Oxygene: {
@@ -1639,11 +1639,11 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Parrot",
   },
   "Parrot Assembly": {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Parrot-Assembly",
   },
   "Parrot Internal Representation": {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Parrot-Internal-Representation",
   },
   Pascal: {
@@ -1707,7 +1707,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Polar",
   },
   Pony: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Pony",
   },
   Portugol: {
@@ -1799,7 +1799,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Qsharp",
   },
   QMake: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=QMake",
   },
   QML: {
@@ -1847,7 +1847,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=RDoc",
   },
   REALbasic: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=REALbasic",
   },
   Reason: {
@@ -1871,7 +1871,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Red",
   },
   Redcode: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Redcode",
   },
   "Regular Expression": {
@@ -1883,7 +1883,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Ren'Py",
   },
   RenderScript: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=RenderScript",
   },
   ReScript: {
@@ -1931,7 +1931,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=RouterOS-Script",
   },
   RPC: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=RPC",
   },
   RPGLE: {
@@ -1951,7 +1951,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Rust",
   },
   Sage: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Sage",
   },
   SaltStack: {
@@ -2011,7 +2011,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=ShellCheck-Config",
   },
   ShellSession: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=ShellSession",
   },
   Shen: {
@@ -2019,7 +2019,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Shen",
   },
   Sieve: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Sieve",
   },
   "Simple File Verification": {
@@ -2043,7 +2043,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Slim",
   },
   Smali: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Smali",
   },
   Smalltalk: {
@@ -2063,7 +2063,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=SmPL",
   },
   SMT: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=SMT",
   },
   Snakemake: {
@@ -2159,7 +2159,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Swift",
   },
   SWIG: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=SWIG",
   },
   SystemVerilog: {
@@ -2175,7 +2175,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Tcl",
   },
   Tcsh: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Tcsh",
   },
   Terra: {
@@ -2251,7 +2251,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Unity3D-Asset",
   },
   "Unix Assembly": {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Unix-Assembly",
   },
   Uno: {
@@ -2351,7 +2351,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=WebAssembly-Interface-Type",
   },
   WebIDL: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=WebIDL",
   },
   WGSL: {
@@ -2419,7 +2419,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=Xonsh",
   },
   XProc: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=XProc",
   },
   XQuery: {
@@ -2427,7 +2427,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=XQuery",
   },
   XS: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=XS",
   },
   XSLT: {
@@ -2463,7 +2463,7 @@ export const GH_COLORS: TColorsMap = {
     url: "https://github.com/trending?l=ZAP",
   },
   Zeek: {
-    color: null,
+    color: undefined,
     url: "https://github.com/trending?l=Zeek",
   },
   ZenScript: {

@@ -1,15 +1,11 @@
 import { GH_COLORS } from "../../const/ghLangColor";
-import {
-  addToFavorite,
-  removeFromFavorite,
-} from "../../store/slices/reposSlice";
-
-import { useAppDispatch } from "../hooks/hooks";
-
-import Star from "./Star";
-
-import styles from "./RepoItem.module.css";
+import { addToFavorite } from "../../store/actions/addToFavorite";
+import { removeFromFavorite } from "../../store/actions/removeFromFavorite";
+import "../../store/slices/reposSlice";
 import { TPartialRepo } from "../../store/types/IRepo";
+import { useAppDispatch } from "../hooks/hooks";
+import styles from "./RepoItem.module.css";
+import Star from "./Star";
 
 const RepoItem = ({
   id,
@@ -18,9 +14,6 @@ const RepoItem = ({
   primaryLanguage,
   viewerHasStarred,
 }: TPartialRepo): JSX.Element => {
-
-
-
   const dispatch = useAppDispatch();
 
   const handleStarClick = (): void => {
@@ -34,7 +27,9 @@ const RepoItem = ({
     }
   };
 
-  const lalngIconStyle = primaryLanguage ? { backgroundColor: GH_COLORS[primaryLanguage].color } : {};
+  const lalngIconStyle = primaryLanguage
+    ? { backgroundColor: GH_COLORS[primaryLanguage].color }
+    : {};
 
   return (
     <div className={styles.wrap}>
@@ -43,10 +38,7 @@ const RepoItem = ({
           {name}
         </a>
         <div className={styles.language}>
-          <div
-            className={styles.round}
-            style={lalngIconStyle}
-          ></div>
+          <div className={styles.round} style={lalngIconStyle}></div>
           <span>{primaryLanguage}</span>
         </div>
       </div>

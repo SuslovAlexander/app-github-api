@@ -1,10 +1,14 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { IInitialAuthSlice } from "../types/IInitialAuthSlice";
-import { IInitialReposSlice } from "../types/IInitialReposSlice";
+import { IState } from "../types/IState";
 import { TUserLogin } from "../types/TUserLogin";
 
-export const getViewer = createAsyncThunk<TUserLogin, void, { state: { auth: IInitialAuthSlice; repos: IInitialReposSlice; }, rejectWithValue: string }>("auth/getViewer", async (_, { getState, rejectWithValue }) => {
+export const getViewer = createAsyncThunk<
+  TUserLogin,
+  void,
+  { state: IState; rejectWithValue: string }
+>("auth/getViewer", async (_, { getState, rejectWithValue }) => {
   const { token } = getState().auth;
   const response = await fetch("https://api.github.com/graphql", {
     method: "POST",
@@ -22,7 +26,7 @@ export const getViewer = createAsyncThunk<TUserLogin, void, { state: { auth: IIn
     }),
   });
   if (!response.ok) {
-    return rejectWithValue("Auth error!")
+    return rejectWithValue("Auth error!");
   }
   const data = await response.json();
   return data.data.viewer;
