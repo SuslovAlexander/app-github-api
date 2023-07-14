@@ -3,7 +3,7 @@ export interface ITransformedRepo {
     url: string;
     name: string;
     primaryLanguage: string;
-    viewerHasStarred: string;
+    viewerHasStarred: boolean;
 }
 
 export type TPartialRepo = Partial<ITransformedRepo>;

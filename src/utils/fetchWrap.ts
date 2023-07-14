@@ -1,4 +1,7 @@
-export const fetchWrap = async (token: string | null, query: string): Promise<Response> => {
+export const fetchWrap = async (
+  token: string | null,
+  query: string
+): Promise<Response> => {
   const response = await fetch("https://api.github.com/graphql", {
     method: "POST",
     headers: {
@@ -10,4 +13,4 @@ export const fetchWrap = async (token: string | null, query: string): Promise<Re
     }),
   });
   return response;
-}; 
+};

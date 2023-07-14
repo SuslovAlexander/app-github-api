@@ -1,3 +1,4 @@
+
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IOriginRepo } from "../types/TPartialOriginRepo";
 import { IState } from "../types/IState";
@@ -7,7 +8,7 @@ import { queryGetRepos } from "../../queries/queryGetRepos";
 export const getRepos = createAsyncThunk<
     IOriginRepo[],
     string,
-    { state: IState; rejectWithValue: string }
+     { state: IState; rejectWithValue: string }
 >("repos/getRepos", async (searchStr: string, { getState, rejectWithValue }) => {
     const { token } = getState().auth;
     const response = await fetchWrap(token, queryGetRepos(searchStr));

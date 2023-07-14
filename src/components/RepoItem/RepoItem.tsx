@@ -1,11 +1,21 @@
+import { useState } from "react";
+
 import { GH_COLORS } from "../../const/ghLangColor";
 import { addToFavorite } from "../../store/actions/addToFavorite";
 import { removeFromFavorite } from "../../store/actions/removeFromFavorite";
 import "../../store/slices/reposSlice";
-import { TPartialRepo } from "../../store/types/IRepo";
 import { useAppDispatch } from "../hooks/hooks";
 import styles from "./RepoItem.module.css";
 import Star from "./Star";
+
+interface IRepoItemProps {
+  id?: string;
+  url?: string;
+  name?: string;
+  primaryLanguage?: string;
+  viewerHasStarred?: boolean;
+  onRepoClick: (value: boolean) => void;
+}
 
 const RepoItem = ({
   id,
@@ -13,18 +23,24 @@ const RepoItem = ({
   name,
   primaryLanguage,
   viewerHasStarred,
-}: TPartialRepo): JSX.Element => {
+  onRepoClick,
+}: IRepoItemProps): JSX.Element => {
+  const [hasStar, setHasStar] = useState(viewerHasStarred);
+
   const dispatch = useAppDispatch();
 
   const handleStarClick = (): void => {
     if (!id) {
       return;
     }
-    if (viewerHasStarred) {
+    if (hasStar) {
       dispatch(removeFromFavorite(id));
+      onRepoClick(false);
     } else {
       dispatch(addToFavorite(id));
+      onRepoClick(true);
     }
+    setHasStar((prev) => !prev);
   };
 
   const lalngIconStyle = primaryLanguage
@@ -45,12 +61,10 @@ const RepoItem = ({
       <div className={styles.actions}>
         <button className={styles.btn} onClick={handleStarClick}>
           <span>
-            {viewerHasStarred
-              ? "Забрать свою звезду (-1)"
-              : "Добавить в избранное (+1)"}
+            {hasStar ? "Забрать свою звезду (-1)" : "Добавить в избранное (+1)"}
           </span>
           <span className={styles.star}>
-            {viewerHasStarred ? <Star fill="gold" /> : <Star />}
+            {hasStar ? <Star fill="gold" /> : <Star />}
           </span>
         </button>
       </div>

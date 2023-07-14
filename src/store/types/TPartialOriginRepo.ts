@@ -11,6 +11,6 @@ export interface IOriginRepo {
       name: string;
     } | null;
     /**есть ли репо в избранном */
-    viewerHasStarred: string;
+    viewerHasStarred: boolean;
   };
 }

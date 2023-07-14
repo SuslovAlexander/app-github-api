@@ -4,5 +4,6 @@ export const mutationAddStar = (qureStr: string) => `mutation {
           stargazers {
             totalCount
           } 
+          viewerHasStarred
         }
       }}`;

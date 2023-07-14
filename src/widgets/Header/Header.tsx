@@ -1,9 +1,10 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { LoginButton } from "../../components/UI/LoginButton";
 import { useAppDispatch, useAppSelector } from "../../components/hooks/hooks";
 import { CLIENT_ID } from "../../const/clientId";
-import { logOut } from "../../store/slices/authSlice";
+import { getViewer, logOut } from "../../store/slices/authSlice";
 import { Navbar } from "../Navdar";
 import { UserLogo } from "../UserLogo";
 import styles from "./Header.module.css";
@@ -28,6 +29,10 @@ const Header = (): JSX.Element => {
     dispatch(logOut());
   };
 
+  useEffect(() => {
+    dispatch(getViewer());
+  }, [dispatch]);
+
   return (
     <div className={styles.header}>
       <div className={styles.auth}>
@@ -40,7 +45,7 @@ const Header = (): JSX.Element => {
       <> {user && <UserLogo {...user} />}</>
       <div className={styles.links}>
         <Navbar />
-      </div> 
+      </div>
     </div>
   );
 };

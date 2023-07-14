@@ -1,6 +1,5 @@
-import { setIsAuth, setToken } from "../../store/slices/authSlice";
+import { getViewer, setIsAuth, setToken } from "../../store/slices/authSlice";
 import { TTokenSetAuth } from "../../store/types/TTokenSetAuth";
-
 import { useAppDispatch } from "./hooks";
 
 const useAuthorize = (): void => {
@@ -31,6 +30,7 @@ const useAuthorize = (): void => {
             localStorage.setItem("accessToken", data.access_token);
             dispatch(setToken(data.access_token));
             dispatch(setIsAuth());
+            dispatch(getViewer());
           }
         })
         .catch((e) => {
