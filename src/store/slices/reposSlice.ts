@@ -6,12 +6,15 @@ import { getRepos } from "../actions/getRepos";
 import { IInitialReposSlice } from "../types/IInitialReposSlice";
 import { removeFromFavorite } from "../actions/removeFromFavorite";
 import { addToFavorite } from "../actions/addToFavorite";
+import { getNextRepos } from "../actions/getNextRepos";
+import { getPrevRepos } from "../actions/getPrevtRepos.";
 
 const initialState: IInitialReposSlice = {
   found: [],
   favorites: [],
   searchInProcess: false,
   faforiteIsFetching: false,
+  cursor: null,
 };
 
 const reposSlice = createSlice({
@@ -29,6 +32,23 @@ const reposSlice = createSlice({
     bulder.addCase(getRepos.fulfilled, (state, { payload }) => {
       state.searchInProcess = false;
       state.found = getReposFromPayload(payload);
+      state.cursor = state.found[state.found.length - 1]?.cursor
+    });
+    bulder.addCase(getNextRepos.pending, (state, { payload }) => {
+      state.searchInProcess = true;
+    });
+    bulder.addCase(getNextRepos.fulfilled, (state, { payload }) => {
+      state.searchInProcess = false;
+      state.found = getReposFromPayload(payload);
+      state.cursor = state.found[state.found.length - 1]?.cursor
+    });
+    bulder.addCase(getPrevRepos.pending, (state, { payload }) => {
+      state.searchInProcess = true;
+    });
+    bulder.addCase(getPrevRepos.fulfilled, (state, { payload }) => {
+      state.searchInProcess = false;
+      state.found = getReposFromPayload(payload);
+      state.cursor = state.found[state.found.length - 1]?.cursor
     });
     bulder.addCase(addToFavorite.fulfilled, (state, { payload }) => {
       const changeView = state.found.find((item) => item.id === payload);

@@ -24,7 +24,7 @@ const Repos = ({ repos }: { repos: TPartialRepo[] }): JSX.Element => {
           </li>
         ))}
       </ul>
-      <Alert isActive={alertIsShown}>Success!</Alert>
+      <Alert isActive={alertIsShown}>Готово!</Alert>
     </>
   );
 };

@@ -1,0 +1,22 @@
+.primary,
+.huge {
+  padding: 3px 12px;
+  background-color: #1a7f37;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  width: 70px;
+  height: 28px;
+  cursor: pointer;
+}
+
+.primary:hover,
+.huge:hover {
+  background-color: #63a37a;
+}
+
+.huge {
+  width: 140px;
+  height: 56px;
+  font-size: large;
+}

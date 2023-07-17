@@ -1,3 +1,5 @@
+import { IUser } from "./IUser";
+
 /**Интерфейс для auth слайса */
 export interface IInitialAuthSlice {
   token: null | string;

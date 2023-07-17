@@ -19,12 +19,16 @@
   justify-content: space-between;
 }
 
-.actions {
-}
-
 .title {
   color: #0969da;
   font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding-bottom: 2px;
+}
+
+.title:hover {
+  text-decoration: underline;
 }
 
 .language {
@@ -63,6 +67,7 @@
   padding-left: 4px;
   vertical-align: middle;
 }
+
 .star:hover {
   background-color: #d0d7de;
   color: #fff;

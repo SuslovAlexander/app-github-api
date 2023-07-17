@@ -6,5 +6,5 @@ export interface IInitialReposSlice {
   favorites: TPartialRepo[];
   searchInProcess: boolean;
   faforiteIsFetching: boolean;
-  pageInfo? : any
+  cursor: string | null | undefined;
 }

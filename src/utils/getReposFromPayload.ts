@@ -7,5 +7,6 @@ export const getReposFromPayload = (payload: IOriginRepo[]) => {
         name: item.node.name,
         primaryLanguage: item.node.primaryLanguage?.name,
         viewerHasStarred: item.node.viewerHasStarred,
+        cursor: item.cursor
     }))
 } 

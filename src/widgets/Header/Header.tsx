@@ -18,8 +18,8 @@ const Header = (): JSX.Element => {
   const handleLoginWhithGithub = (): void => {
     window.location.assign(
       "https://github.com/login/oauth/authorize?client_id=" +
-        CLIENT_ID +
-        "&scope=repo"
+      CLIENT_ID +
+      "&scope=repo"
     );
   };
 

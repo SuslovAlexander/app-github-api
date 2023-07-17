@@ -1,4 +1,9 @@
 export interface IOriginRepo {
+  pageInfo: {
+    endCursor: string | null | undefined;
+    hasNextPage: boolean;
+  }
+  cursor: string | null | undefined;
   node: {
     /**id репозитория */
     id: string;

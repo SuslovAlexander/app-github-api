@@ -4,6 +4,7 @@ export interface ITransformedRepo {
     name: string;
     primaryLanguage: string;
     viewerHasStarred: boolean;
+    cursor: string | null;
 }
 
 export type TPartialRepo = Partial<ITransformedRepo>;

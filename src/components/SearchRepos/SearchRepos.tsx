@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { getRepos } from "../../store/actions/getRepos";
 import { clearFound } from "../../store/slices/reposSlice";
@@ -7,16 +7,21 @@ import { SearchInput } from "../SearchInput";
 import Loader from "../UI/Loader/Loader";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import styles from "./SearchRepos.module.css";
+import { Placeholder } from "../UI/Placeholder";
 
-const SearchRepos = (): JSX.Element => {
-  const [inputValue, setInputValue] = useState<string>("");
+interface ISearchReposProps {
+  onChange: (value: string) => void,
+  value: string;
+}
+
+const SearchRepos = ({ onChange, value }: ISearchReposProps): JSX.Element => {
   const { found, searchInProcess } = useAppSelector((state) => state.repos);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getRepos(inputValue));
-  }, [inputValue, dispatch]);
+    dispatch(getRepos(value));
+  }, [value, dispatch]);
 
   const handleFocus = (): void => {
     dispatch(clearFound());
@@ -26,11 +31,12 @@ const SearchRepos = (): JSX.Element => {
     <div className={styles.wrap}>
       <SearchInput
         placeholder="Найти репозиторий..."
-        value={inputValue}
-        onChange={setInputValue}
+        value={value}
+        onChange={onChange}
         onFocus={handleFocus}
       />
       {searchInProcess ? <Loader /> : <Repos repos={found} />}
+      {!found.length && value.length > 1 && <Placeholder>Репозитории не найдены :(</Placeholder>}
     </div>
   );
 };

@@ -5,6 +5,7 @@ const App = (): JSX.Element => {
   useAuthorize();
 
   return <Routing />;
+
 };
 
 export default App;
